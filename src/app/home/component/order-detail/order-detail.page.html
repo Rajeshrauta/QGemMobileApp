@@ -1,0 +1,26 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Order Detail</ion-title>
+    <ion-button slot="start" fill="clear">
+      <ion-back-button defaultHref="/home" color="dark"></ion-back-button>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let item of item?.itemDetail" >
+      <ion-label>
+        {{item?.itemName}}
+        <p>
+          <ion-text>
+            {{item?.description}}
+          </ion-text>
+        </p>
+      </ion-label>
+      <ion-text slot="end">
+        {{item?.quantity}}
+      </ion-text>
+    </ion-item>
+  </ion-list>
+</ion-content>

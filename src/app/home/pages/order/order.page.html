@@ -1,0 +1,25 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      New Orders
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let item of items" [detail] = "true" [routerLink] = "['/','home','order-detail',item?.docNumber]"><!-- <ion-item *ngFor="let item of items" [detail] = "true"> -->
+      <ion-label>
+        {{item?.docNumber}}
+        <p>
+          <ion-text>
+            {{item?.customerName}}
+          </ion-text>
+        </p>
+      </ion-label>
+      <ion-text slot="end">
+        {{item?.itemCount}}
+      </ion-text>
+    </ion-item>
+  </ion-list>
+</ion-content>
