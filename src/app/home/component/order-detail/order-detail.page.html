@@ -1,26 +1,40 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Order Detail</ion-title>
+    <ion-title>Estimate #{{order?. docNumber}}</ion-title>
     <ion-button slot="start" fill="clear">
-      <ion-back-button defaultHref="/home" color="dark"></ion-back-button>
+      <ion-back-button defaultHref="/home" color="dark" slot="icon-only"></ion-back-button>
+    </ion-button>
+    <ion-button slot="end" fill="clear" (click)="startScan()">
+      <ion-icon name="barcode-outline"></ion-icon>
     </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let item of item?.itemDetail" >
+    <ion-item *ngFor="let item of order?.items" >
       <ion-label>
-        {{item?.itemName}}
+        <h2>{{ item?.name }}</h2>
         <p>
           <ion-text>
             {{item?.description}}
           </ion-text>
         </p>
+        <p>Required: {{ item?.quantity }}</p>
       </ion-label>
-      <ion-text slot="end">
-        {{item?.quantity}}
-      </ion-text>
+      <ion-item lines="none">
+        <ion-button slot="start" (click)="decreaseQty(item)">-</ion-button>
+        <ion-input [(ngModel)]="item.scannedQuantity" type="number" readonly></ion-input>
+        <ion-button slot="end" (click)="increaseQty(item)">+</ion-button>
+      </ion-item>
     </ion-item>
   </ion-list>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button expand="block" >
+      Upload
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
