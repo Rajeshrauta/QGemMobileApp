@@ -23,9 +23,9 @@
         <p>Required: {{ item?.quantity }}</p>
       </ion-label>
       <ion-item lines="none" class="quantity-control">
-        <ion-button slot="start" (click)="decreaseQty(item)" color="danger">-</ion-button>
+        <ion-icon  slot="start" (click)="decreaseQty(item)" color="danger" name="remove-circle-outline" class="icon"></ion-icon>
         <ion-input [(ngModel)]="item.scannedQuantity" type="number" class="compact-input" readonly></ion-input>
-        <ion-button slot="end" (click)="increaseQty(item)">+</ion-button>
+        <ion-icon slot="end" (click)="increaseQty(item)" name="add-circle-outline" class="icon"></ion-icon>
       </ion-item>
     </ion-item>
   </ion-list>
