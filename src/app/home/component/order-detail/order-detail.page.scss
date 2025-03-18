@@ -1,0 +1,22 @@
+.quantity-control {
+    display: flex;
+    align-items: center;
+    width: auto; // Prevents it from taking full width
+    padding: 0;  // Removes extra padding
+    margin-left: 10px; // Optional: adds a little space from the label
+  }
+  
+  .compact-input {
+    width: 50px; // Adjust this to fit 3 digits (e.g., "999")
+    max-width: 50px;
+    text-align: center; // Centers the number
+    padding: 0 5px; // Minimal padding
+    --padding-start: 0; // Override Ionic default padding
+    --padding-end: 0;
+  }
+  
+  .quantity-control ion-button {
+    margin: 0; // Reduces button spacing
+    --padding-start: 5px; // Compact button padding
+    --padding-end: 5px;
+  }

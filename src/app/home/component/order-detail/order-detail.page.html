@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title>Estimate #{{order?. docNumber}}</ion-title>
     <ion-button slot="start" fill="clear">
@@ -22,9 +22,9 @@
         </p>
         <p>Required: {{ item?.quantity }}</p>
       </ion-label>
-      <ion-item lines="none">
-        <ion-button slot="start" (click)="decreaseQty(item)">-</ion-button>
-        <ion-input [(ngModel)]="item.scannedQuantity" type="number" readonly></ion-input>
+      <ion-item lines="none" class="quantity-control">
+        <ion-button slot="start" (click)="decreaseQty(item)" color="danger">-</ion-button>
+        <ion-input [(ngModel)]="item.scannedQuantity" type="number" class="compact-input" readonly></ion-input>
         <ion-button slot="end" (click)="increaseQty(item)">+</ion-button>
       </ion-item>
     </ion-item>

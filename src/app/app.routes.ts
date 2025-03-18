@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { HomePage } from './home/home.page';
 
 export const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full' }, // Default redirect
   {
     path: 'login',
     loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
@@ -30,5 +31,4 @@ export const routes: Routes = [
       },
     ],
   },
-  { path: '', redirectTo: 'login', pathMatch: 'full' }, // Default redirect
 ];

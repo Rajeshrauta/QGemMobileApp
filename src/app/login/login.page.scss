@@ -1,0 +1,18 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%; // Takes full height of ion-content
+  max-width: 400px; // Limits form width
+  margin: 0 auto; // Centers horizontally
+}
+
+ion-item {
+  width: 100%; // Ensures items take full container width
+  margin-bottom: 20px; // Spacing between fields
+}
+
+.login-button {
+  margin-top: 20px;
+}

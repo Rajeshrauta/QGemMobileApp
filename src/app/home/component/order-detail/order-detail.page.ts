@@ -83,6 +83,7 @@ export class OrderDetailPage implements OnInit {
   async startScan() {
     if (this.platform.is('cordova') || this.platform.is('capacitor')) {
       const granted = await this.requestPermissions();
+      await this.ensureGoogleBarcodeScannerModuleInstalled();
       if (!granted) {
         console.log('Camera permission denied');
         await this.showPermissionDeniedAlert();
@@ -97,6 +98,21 @@ export class OrderDetailPage implements OnInit {
     else {
       console.log('Barcode scanning is not supported on the web.');
       await this.showAlert('Not Supported', 'Barcode scanning is only available on mobile devices.');
+    }
+  }
+
+  async ensureGoogleBarcodeScannerModuleInstalled() {
+    try {
+      const { available } = await BarcodeScanner.isGoogleBarcodeScannerModuleAvailable();
+      if (!available) {
+        await BarcodeScanner.installGoogleBarcodeScannerModule();
+        console.log('Google Barcode Scanner Module installed.');
+      } else {
+        console.log('Google Barcode Scanner Module already available.');
+      }
+    } catch (error) {
+      console.error('Error installing Google Barcode Scanner Module:', error);
+      throw error;
     }
   }
 
