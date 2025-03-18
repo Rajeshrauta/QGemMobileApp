@@ -17,7 +17,7 @@ import {
 } from '@ionic/angular/standalone';
 import { ActivatedRoute } from '@angular/router';
 import { OrderService } from 'src/app/services/floor-manager/order.service';
-import { barcodeOutline } from 'ionicons/icons';
+import { barcodeOutline, addCircleOutline, removeCircleOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 
 import { BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
@@ -57,7 +57,7 @@ export class OrderDetailPage implements OnInit {
 
   constructor(route: ActivatedRoute, private orderService: OrderService, private alertController: AlertController, private platform: Platform) {
     this.route = route;  // Properly assign route    
-    addIcons({ barcodeOutline });
+    addIcons({ barcodeOutline, addCircleOutline, removeCircleOutline });
   }
   ngOnInit() {
     this.getParams();

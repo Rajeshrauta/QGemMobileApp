@@ -2,10 +2,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   height: 100%; // Takes full height of ion-content
-  max-width: 400px; // Limits form width
-  margin: 0 auto; // Centers horizontally
 }
 
 ion-item {
