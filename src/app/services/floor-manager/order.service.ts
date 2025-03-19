@@ -22,15 +22,15 @@ export class OrderService {
       estimateId: 1,
       docNumber: 10001,
       items: [
-        { name: 'frozen paratha', description : 'frozen paratha', barcode: '8902519500700', quantity: 5, scannedQuantity: 0 },
-        { name: 'Laddu', description : 'Haldiram Laddu', barcode: '67890', quantity: 3, scannedQuantity: 0 }
+        { name: 'frozen paratha', description : 'frozen paratha', barcode: '8902519500700', quantity: 5, scannedQuantity: 0, completed: false },
+        { name: 'Laddu', description : 'Haldiram Laddu', barcode: '67890', quantity: 3, scannedQuantity: 0, completed: false}
       ]
     },
     {
       estimateId: 2,
       docNumber: 10002,
       items: [
-        { name: 'Ice tea', description: 'Ice tea', barcode: '8902519500700', quantity: 2, scannedQuantity: 0 }
+        { name: 'Ice tea', description: 'Ice tea', barcode: '8902519500700', quantity: 2, scannedQuantity: 0, completed: false }
       ]
     }
   ];
