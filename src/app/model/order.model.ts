@@ -10,4 +10,5 @@ export interface Order {
     barcode: string;
     quantity: number;
     scannedQuantity: number;
+    completed: boolean ;
   }

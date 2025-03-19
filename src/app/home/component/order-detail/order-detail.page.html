@@ -11,24 +11,56 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let item of order?.items" >
-      <ion-label>
-        <h2>{{ item?.name }}</h2>
-        <p>
-          <ion-text>
-            {{item?.description}}
-          </ion-text>
-        </p>
-        <p>Required: {{ item?.quantity }}</p>
-      </ion-label>
-      <ion-item lines="none" class="quantity-control">
-        <ion-icon  slot="start" (click)="decreaseQty(item)" color="danger" name="remove-circle-outline" class="icon"></ion-icon>
-        <ion-input [(ngModel)]="item.scannedQuantity" type="number" class="compact-input" readonly></ion-input>
-        <ion-icon slot="end" (click)="increaseQty(item)" name="add-circle-outline" class="icon"></ion-icon>
-      </ion-item>
-    </ion-item>
-  </ion-list>
+  <ion-tabs id="orderTabs">
+    <ion-tab-bar slot="top">
+      <ion-tab-button tab="uncounted">
+        <ion-label>Uncounted</ion-label>
+      </ion-tab-button>
+      <ion-tab-button tab="counted">
+        <ion-label>Counted</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+
+    <!-- Uncounted Tab -->
+    <ion-tab tab="uncounted">
+      <ion-list>
+        <ion-item *ngFor="let item of uncountedItems" lines="full">
+          <ion-label class="item-details">
+            <h2>{{ item?.name }}</h2>
+            <p>
+              <ion-text>{{ item?.description }}</ion-text>
+            </p>
+            <p>Required: {{ item?.quantity }}</p>
+          </ion-label>
+          <div class="controls">
+            <ion-item lines="none" class="quantity-control">
+              <ion-icon slot="start" (click)="decreaseQty(item)" color="danger" name="remove-circle-outline" class="icon"></ion-icon>
+              <ion-input [(ngModel)]="item.scannedQuantity" type="number" class="compact-input" readonly></ion-input>
+              <ion-icon slot="end" (click)="increaseQty(item)" name="add-circle-outline" class="icon"></ion-icon>
+            </ion-item>
+            <ion-button (click)="markAsCompleted(item)" color="success" size="small" class="completeBtn">Completed</ion-button>
+          </div>
+        </ion-item>
+      </ion-list>
+    </ion-tab>
+
+    <!-- Counted Tab -->
+    <ion-tab tab="counted">
+      <ion-list>
+        <ion-item *ngFor="let item of countedItems">
+          <ion-label>
+            <h2>{{ item?.name }}</h2>
+            <p>
+              <ion-text>{{ item?.description }}</ion-text>
+            </p>
+            <p>Required: {{ item?.quantity }}</p>
+            <p>Scanned: {{ item?.scannedQuantity }}</p>
+          </ion-label>
+          <ion-button slot="end" (click)="removeFromCounted(item)" color="danger">Remove</ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-tab>
+  </ion-tabs>
 </ion-content>
 
 <ion-footer>
