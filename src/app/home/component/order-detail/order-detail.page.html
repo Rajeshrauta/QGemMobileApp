@@ -1,72 +1,160 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Estimate #{{order?. docNumber}}</ion-title>
+    <ion-title>Estimate #{{order?.docNumber}}</ion-title>
     <ion-button slot="start" fill="clear">
       <ion-back-button defaultHref="/home" color="dark" slot="icon-only"></ion-back-button>
     </ion-button>
     <ion-button slot="end" fill="clear" (click)="startScan()">
-      <ion-icon name="barcode-outline"></ion-icon>
+      <ion-icon name="scan"></ion-icon>
     </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-tabs id="orderTabs">
-    <ion-tab-bar slot="top">
+  <ion-tabs id="orderTabs" (ionTabsDidChange)="onTabChange($event)">
+    <ion-tab-bar slot="top" class="tab-bar-padding">
       <ion-tab-button tab="uncounted">
-        <ion-label>Uncounted</ion-label>
+        <ion-label>
+          <h2>Uncounted ({{ uncountedCount }})</h2>
+        </ion-label>
       </ion-tab-button>
       <ion-tab-button tab="counted">
-        <ion-label>Counted</ion-label>
+        <ion-label>
+          <h2>Counted ({{ countedCount }})</h2>
+        </ion-label>
       </ion-tab-button>
     </ion-tab-bar>
 
     <!-- Uncounted Tab -->
     <ion-tab tab="uncounted">
-      <ion-list>
-        <ion-item *ngFor="let item of uncountedItems" lines="full">
-          <ion-label class="item-details">
-            <h2>{{ item?.name }}</h2>
-            <p>
-              <ion-text>{{ item?.description }}</ion-text>
-            </p>
-            <p>Required: {{ item?.quantity }}</p>
-          </ion-label>
-          <div class="controls">
-            <ion-item lines="none" class="quantity-control">
-              <ion-icon slot="start" (click)="decreaseQty(item)" color="danger" name="remove-circle-outline" class="icon"></ion-icon>
-              <ion-input [(ngModel)]="item.scannedQuantity" type="number" class="compact-input" readonly></ion-input>
-              <ion-icon slot="end" (click)="increaseQty(item)" name="add-circle-outline" class="icon"></ion-icon>
-            </ion-item>
-            <ion-button (click)="markAsCompleted(item)" color="success" size="small" class="completeBtn">Completed</ion-button>
-          </div>
-        </ion-item>
-      </ion-list>
+      <ion-content>
+        <ion-list>
+          <ion-item *ngFor="let item of uncountedItems" lines="full">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-text class="item-description">
+                    <ion-icon name="logo-apple-ar"></ion-icon> <strong> {{ item?.description }} </strong>
+                  </ion-text>
+                </ion-col>
+                <ion-col size="8">
+                  <ion-text class="item-name">
+                    <ion-icon name="attach-outline"></ion-icon> {{ item?.name }} 
+                  </ion-text>
+                  <ion-text class="item-expiry">
+                    <ion-icon name="calendar-outline"></ion-icon> <strong> {{ item?.expiryDate | date:'MM/d/y' }} </strong>
+                  </ion-text>
+                  <ion-text class="item-location">
+                    📍<strong> {{ item?.location }} </strong>
+                  </ion-text>
+                </ion-col>
+                <ion-col size="4" class="right-align">
+                  <ion-text class="quantity-info">Required: <strong> {{ item?.quantity }} </strong></ion-text><br />
+                  <ion-text class="quantity-info">Scanned: <strong> {{ item?.scannedQuantity }} </strong></ion-text>
+                </ion-col>
+                <ion-col size="12">
+                  <ion-button (click)="markAsCompleted(item)" color="success" expand="full"> Complete </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+        </ion-list>
+      </ion-content>
     </ion-tab>
 
     <!-- Counted Tab -->
     <ion-tab tab="counted">
-      <ion-list>
-        <ion-item *ngFor="let item of countedItems">
-          <ion-label>
-            <h2>{{ item?.name }}</h2>
-            <p>
-              <ion-text>{{ item?.description }}</ion-text>
-            </p>
-            <p>Required: {{ item?.quantity }}</p>
-            <p>Scanned: {{ item?.scannedQuantity }}</p>
-          </ion-label>
-          <ion-button slot="end" (click)="removeFromCounted(item)" color="danger">Remove</ion-button>
-        </ion-item>
-      </ion-list>
+      <ion-content>
+        <ion-list>
+          <ion-item *ngFor="let item of countedItems" lines="full">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-text class="item-description">
+                    <ion-icon name="logo-apple-ar"></ion-icon> <strong> {{ item?.description }} </strong>
+                  </ion-text>
+                </ion-col>
+                <ion-col size="8">
+                  <ion-text class="item-name">
+                    <ion-icon name="attach-outline"></ion-icon> {{ item?.name }} 
+                  </ion-text>
+                  <ion-text class="item-expiry">
+                    <ion-icon name="calendar-outline"></ion-icon> <strong> {{ item?.expiryDate | date:'MM/d/y' }} </strong>
+                  </ion-text>
+                </ion-col>
+                <ion-col size="4" class="right-align">
+                  <ion-text class="quantity-info">Required: <strong> {{ item?.quantity }} </strong></ion-text><br />
+                  <ion-text class="quantity-info">Scanned: <strong> {{ item?.scannedQuantity }} </strong></ion-text>
+                </ion-col>
+                <ion-col size="12">
+                  <ion-button (click)="removeFromCounted(item)" color="danger" expand="full"> Remove </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+        </ion-list>
+      </ion-content>
     </ion-tab>
   </ion-tabs>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="startScan()">
+      <ion-icon name="scan"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-modal #scanModal [initialBreakpoint]="0.5" [breakpoints]="[0, 0.5, 1]">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Scanned Item</ion-title>
+          <ion-button slot="end" fill="clear" (click)="scanModal.dismiss()">Close</ion-button>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list>
+          <ion-item *ngFor="let item of scannedItems" lines="full">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-text class="item-description">
+                    <ion-icon name="logo-apple-ar"></ion-icon> <strong> {{ item?.description }} </strong>
+                  </ion-text>
+                </ion-col>
+                <ion-col size="7">
+                  <ion-text class="item-name">
+                    <ion-icon name="attach-outline"></ion-icon> {{ item?.name }} 
+                  </ion-text>
+                  <ion-text class="item-expiry">
+                    <ion-icon name="calendar-outline"></ion-icon> <strong> {{ item?.expiryDate | date:'MM/d/y' }} </strong>
+                  </ion-text>
+                  <ion-text class="item-location">
+                    📍<strong> {{ item?.location }} </strong>
+                  </ion-text>
+                </ion-col>
+                <ion-col size="5" class="right-align">
+                  <div class="controls">
+                    <ion-item lines="none" class="quantity-control">
+                      <ion-icon slot="start" (click)="decreaseQty(item)" color="danger" name="remove-circle-outline" class="icon"></ion-icon>
+                      <ion-input [(ngModel)]="item.scannedQuantity" type="number" class="compact-input" readonly></ion-input>
+                      <ion-icon slot="end" (click)="increaseQty(item)" name="add-circle-outline" class="icon"></ion-icon>
+                    </ion-item>
+                  </div>
+                  <ion-text>Required: <strong> {{ item?.quantity }} </strong></ion-text><br />
+                </ion-col>
+              </ion-row>
+            </ion-grid>            
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="activeTab === 'counted'">
   <ion-toolbar>
-    <ion-button expand="block" >
-      Upload
+    <ion-button expand="block">
+      {{ loading ? 'Uploading...' : 'Upload' }}
     </ion-button>
   </ion-toolbar>
 </ion-footer>

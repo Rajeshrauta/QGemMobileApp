@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   IonContent,
@@ -17,12 +17,18 @@ import {
   IonTab,
   IonTabs,
   IonTabBar,
+  IonModal,
   IonTabButton,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonFab,
+  IonFabButton,
   ToastController,
 } from '@ionic/angular/standalone';
 import { ActivatedRoute } from '@angular/router';
 import { OrderService } from 'src/app/services/floor-manager/order.service';
-import { barcodeOutline, addCircleOutline, removeCircleOutline } from 'ionicons/icons';
+import { scan, addCircleOutline, removeCircleOutline, attachOutline, logoAppleAr, calendarOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 
 import { BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
@@ -56,14 +62,27 @@ import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
     IonTabs,
     IonTabButton,
     IonTabBar,
+    IonModal,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonFab,
+    IonFabButton,
     FormsModule
   ]
 })
 export class OrderDetailPage implements OnInit {
   order?: Order;
   item: Item[] = [];
-  public loading = false;
+  scannedItems: Item[] = [];
+
+  uncountedCount: number = 0;
+  countedCount: number = 0;
+  loading : boolean = false;
+  activeTab: string = 'uncounted';
   private route: ActivatedRoute;
+
+  @ViewChild('scanModal') scanModal!: IonModal;
 
   constructor(
     route: ActivatedRoute,
@@ -73,7 +92,7 @@ export class OrderDetailPage implements OnInit {
     private toastController: ToastController
   ) {
     this.route = route;  // Properly assign route    
-    addIcons({ barcodeOutline, addCircleOutline, removeCircleOutline });
+    addIcons({ scan, addCircleOutline, removeCircleOutline, attachOutline, logoAppleAr, calendarOutline });
   }
   ngOnInit() {
     this.getParams();
@@ -91,11 +110,15 @@ export class OrderDetailPage implements OnInit {
   }
 
   get uncountedItems(): Item[] {
-    return this.item.filter(item => !item.completed);
+    let uncounted = this.item.filter(item => !item.completed);
+    this.uncountedCount = uncounted.length;
+    return uncounted;
   }
 
   get countedItems(): Item[] {
-    return this.item.filter(item => item.completed);
+    let counted = this.item.filter(item => item.completed);
+    this.countedCount = counted.length;
+    return counted;
   }
 
   markAsCompleted(item: Item) {
@@ -133,7 +156,7 @@ export class OrderDetailPage implements OnInit {
       });
       const savedData = JSON.parse(result.data as string);
       this.item.forEach(item => {
-        const savedItem = savedData.find((i: Item) => i.barcode === item.barcode);
+        const savedItem = savedData.find((i: Item) => i.barcode === item.barcode && i.location == item.location);
         if (savedItem) {
           item.scannedQuantity = savedItem.scannedQuantity;
           item.completed = savedItem.completed || false;
@@ -164,7 +187,6 @@ export class OrderDetailPage implements OnInit {
       const granted = await this.requestPermissions();
       await this.ensureGoogleBarcodeScannerModuleInstalled();
       if (!granted) {
-        console.log('Camera permission denied');
         this.showAlert('Permission Required', 'Camera access is needed to scan barcodes. Please enable it in Settings > Apps > [Your App] > Permissions.');
         return;
       }
@@ -175,7 +197,6 @@ export class OrderDetailPage implements OnInit {
       }
     }
     else {
-      console.log('Barcode scanning is not supported on the web.');
       await this.showAlert('Not Supported', 'Barcode scanning is only available on mobile devices.');
     }
   }
@@ -186,25 +207,25 @@ export class OrderDetailPage implements OnInit {
     return camera === 'granted';
   }
 
-  handleScan(barcode: string) {
-    let item = (this.item).find(i => i.barcode === barcode);
-    if (item) {
-      if (item.scannedQuantity < item.quantity) {
-        item.scannedQuantity++;
-        this.playFeedback();
-        this.saveLocalData();
-      } else {
-        this.showAlert('Limit Reached', `Cannot scan more than ${item.quantity} for ${item.name}.`);
-      }
+  async handleScan(barcode: string) {
+    this.scannedItems = this.item.filter(i => i.barcode === barcode && !i.completed);
+    if (this.scannedItems.length > 0) {
+      this.playFeedback();
+      await this.scanModal.present();
     } else {
-      console.log('Item not found');
-      this.showAlert('Not Found', 'No item matches this barcode.');
+      this.playNotFoundFeedBack();
+      this.showAlert('Not Found', 'No uncounted items match this barcode.');
     }
   }
 
   async playFeedback() {
     await Haptics.vibrate();
     const audio = new Audio('assets/beep.mp3');
+    audio.play();
+  }
+
+  playNotFoundFeedBack() {
+    const audio = new Audio('assets/notFoundBeep.mp3');
     audio.play();
   }
 
@@ -239,5 +260,9 @@ export class OrderDetailPage implements OnInit {
       console.error('Error installing Google Barcode Scanner Module:', error);
       throw error;
     }
+  }
+
+  onTabChange(event: any) {
+    this.activeTab = event.tab;
   }
 }

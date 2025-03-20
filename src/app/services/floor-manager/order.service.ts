@@ -21,16 +21,30 @@ export class OrderService {
     {
       estimateId: 1,
       docNumber: 10001,
+      customerName : "Robert house",
+      itemCount: 2,
+      assignTime: new Date(), 
       items: [
-        { name: 'frozen paratha', description : 'frozen paratha', barcode: '8902519500700', quantity: 5, scannedQuantity: 0, completed: false },
-        { name: 'Laddu', description : 'Haldiram Laddu', barcode: '67890', quantity: 3, scannedQuantity: 0, completed: false}
+        { name: 'KLGCP', description : 'KLG Calcutti Paan 12 ins*4(14pcs) (1 Baby carton out of 2 in the master case)', location: 'A1L1', expiryDate : new Date(),barcode: '8902519500700', quantity: 5, scannedQuantity: 0, completed: false },
+        { name: 'KLGCP', description : 'KLG Calcutti Paan 12 ins*4(14pcs) (1 Baby carton out of 2 in the master case)', location: 'C1L2', expiryDate : new Date(), barcode: '8902519500700', quantity: 9, scannedQuantity: 0, completed: false },
+        { name: 'KLGCP', description : 'KLG Calcutti Paan 12 ins*4(14pcs) (1 Baby carton out of 2 in the master case)', location: 'Y2L3', expiryDate : new Date(), barcode: '8902519500700', quantity: 6, scannedQuantity: 0, completed: false },
+        { name: 'KLGCP', description : 'KLG Calcutti Paan 12 ins*4(14pcs) (1 Baby carton out of 2 in the master case)', location: 'U2L2', expiryDate : new Date(), barcode: '8902519500700', quantity: 23, scannedQuantity: 0, completed: false },
+        { name: 'KLGCP', description : 'KLG Calcutti Paan 12 ins*4(14pcs) (1 Baby carton out of 2 in the master case)', location: 'M5L4', expiryDate : new Date(), barcode: '8902519500700', quantity: 33, scannedQuantity: 0, completed: false },
+        { name: 'KLGCP', description : 'KLG Calcutti Paan 12 ins*4(14pcs) (1 Baby carton out of 2 in the master case)', location: 'X6L5', expiryDate : new Date(), barcode: '8902519500700', quantity: 9, scannedQuantity: 0, completed: false },
+        { name: 'KLGCP', description : 'KLG Calcutti Paan 12 ins*4(14pcs) (1 Baby carton out of 2 in the master case)', location: 'N5L2', expiryDate : new Date(), barcode: '8902519500700', quantity: 100, scannedQuantity: 0, completed: false },
+        { name: 'KLGCP', description : 'KLG Calcutti Paan 12 ins*4(14pcs) (1 Baby carton out of 2 in the master case)', location: 'N4L2', expiryDate : new Date(), barcode: '8902519500700', quantity: 54, scannedQuantity: 0, completed: false },
+        { name: 'KLGCP', description : 'KLG Calcutti Paan 12 ins*4(14pcs) (1 Baby carton out of 2 in the master case)', location: 'G3L3', expiryDate : new Date(), barcode: '8902519500700', quantity: 4, scannedQuantity: 0, completed: false },
+        { name: 'GRBGPB5', description : 'GRB Pure Brown Ghee(Buffalo) Jar 500ml*24', location: 'K1L3', expiryDate : new Date(), barcode: '8902519500702', quantity: 3, scannedQuantity: 0, completed: false}
       ]
     },
     {
       estimateId: 2,
       docNumber: 10002,
+      customerName : "Sai Complex",
+      itemCount: 1,
+      assignTime: new Date(), 
       items: [
-        { name: 'Ice tea', description: 'Ice tea', barcode: '8902519500700', quantity: 2, scannedQuantity: 0, completed: false }
+        { name: 'MRFO', description: 'Mothers Recipe Fried Onion 100g*24', location: 'O1L5', expiryDate : new Date(), barcode: '8902519500700', quantity: 2, scannedQuantity: 0, completed: false }
       ]
     }
   ];
