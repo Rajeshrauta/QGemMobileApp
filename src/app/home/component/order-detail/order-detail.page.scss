@@ -1,30 +1,74 @@
 .quantity-control {
-    display: flex;
-    align-items: center;
-    width: auto; // Prevents it from taking full width
-    padding: 0;  // Removes extra padding
-    margin-left: 10px; // Optional: adds a little space from the label
-  }
-  
-  .compact-input {
-    width: 50px; // Adjust this to fit 3 digits (e.g., "999")
-    max-width: 50px;
-    text-align: center; // Centers the number
-    padding: 0 5px; // Minimal padding
-    --padding-start: 0; // Override Ionic default padding
-    --padding-end: 0;
-  }
-  
-  .quantity-control ion-button {
-    margin: 0; // Reduces button spacing
-    --padding-start: 5px; // Compact button padding
-    --padding-end: 5px;
-  }
+  display: flex;
+  align-items: center;
+  width: auto;
+  padding: 0;
+  margin-left: 10px;
+}
 
-  .icon{
-    margin: 0;
-  }
+.compact-input {
+  width: 50px;
+  max-width: 50px;
+  text-align: center;
+  padding: 0 5px;
+  --padding-start: 0;
+  --padding-end: 0;
+}
 
-  .completeBtn{
-    float: inline-end;
-  }
+.quantity-control ion-button {
+  margin: 0;
+  --padding-start: 5px;
+  --padding-end: 5px;
+}
+
+.icon {
+  margin: 0;
+  font-size: 28px; // Consistent icon size
+}
+
+.item-description {
+  font-size: 1rem;
+  font-weight: bold;
+  display: block;
+}
+
+.item-name {
+  font-size: 0.9rem;
+  display: block;
+}
+
+.item-location {
+  font-size: 0.85rem;
+  display: block;
+}
+
+.item-expiry {
+  font-size: 0.85rem;
+  display: block;
+}
+
+.quantity-info {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.right-align {
+  text-align: right;
+}
+
+.button-col {
+  text-align: center;
+  padding-top: 5px;
+}
+
+.tab-bar-padding {
+  padding: 0;
+}
+
+ion-tab {
+  overflow-y: auto; // Ensure tab content can scroll if needed
+}
+
+ion-list {
+  padding: 0; // Remove extra padding that might constrain list
+}
