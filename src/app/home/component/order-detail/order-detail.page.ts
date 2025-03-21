@@ -28,7 +28,15 @@ import {
 } from '@ionic/angular/standalone';
 import { ActivatedRoute } from '@angular/router';
 import { OrderService } from 'src/app/services/floor-manager/order.service';
-import { scan, addCircleOutline, removeCircleOutline, attachOutline, logoAppleAr, calendarOutline } from 'ionicons/icons';
+import {
+  scan,
+  addCircleOutline,
+  removeCircleOutline,
+  attachOutline,
+  logoAppleAr,
+  calendarOutline,
+  bagCheck
+} from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 
 import { BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
@@ -78,7 +86,7 @@ export class OrderDetailPage implements OnInit {
 
   uncountedCount: number = 0;
   countedCount: number = 0;
-  loading : boolean = false;
+  loading: boolean = false;
   activeTab: string = 'uncounted';
   private route: ActivatedRoute;
 
@@ -92,7 +100,15 @@ export class OrderDetailPage implements OnInit {
     private toastController: ToastController
   ) {
     this.route = route;  // Properly assign route    
-    addIcons({ scan, addCircleOutline, removeCircleOutline, attachOutline, logoAppleAr, calendarOutline });
+    addIcons({ 
+      scan, 
+      addCircleOutline, 
+      removeCircleOutline, 
+      attachOutline, 
+      logoAppleAr, 
+      calendarOutline,
+      bagCheck
+     });
   }
   ngOnInit() {
     this.getParams();

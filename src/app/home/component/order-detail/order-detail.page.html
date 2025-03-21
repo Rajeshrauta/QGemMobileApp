@@ -37,7 +37,7 @@
                     <ion-icon name="logo-apple-ar"></ion-icon> <strong> {{ item?.description }} </strong>
                   </ion-text>
                 </ion-col>
-                <ion-col size="8">
+                <ion-col size="4">
                   <ion-text class="item-name">
                     <ion-icon name="attach-outline"></ion-icon> {{ item?.name }} 
                   </ion-text>
@@ -48,12 +48,16 @@
                     📍<strong> {{ item?.location }} </strong>
                   </ion-text>
                 </ion-col>
-                <ion-col size="4" class="right-align">
-                  <ion-text class="quantity-info">Required: <strong> {{ item?.quantity }} </strong></ion-text><br />
-                  <ion-text class="quantity-info">Scanned: <strong> {{ item?.scannedQuantity }} </strong></ion-text>
+                <ion-col size="4">
+                  <ion-text>Required: <span class="quantity-info"> {{ item?.quantity }} </span></ion-text><br />
+                  <ion-text>Scanned: <span class="quantity-info"> {{ item?.scannedQuantity }} </span></ion-text>
                 </ion-col>
-                <ion-col size="12">
-                  <ion-button (click)="markAsCompleted(item)" color="success" expand="full"> Complete </ion-button>
+                <ion-col size="2">
+                  <ion-icon (click)="increaseQty(item)" name="add-circle-outline" class="inc-icon"></ion-icon>
+                  <ion-icon (click)="decreaseQty(item)" color="danger" name="remove-circle-outline" class="dec-icon"></ion-icon>
+                </ion-col>
+                <ion-col size="2" class="right-align">
+                  <ion-icon (click)="markAsCompleted(item)" color="success" name="bag-check" class="completeBtn"></ion-icon>
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -135,9 +139,9 @@
                 <ion-col size="5" class="right-align">
                   <div class="controls">
                     <ion-item lines="none" class="quantity-control">
-                      <ion-icon slot="start" (click)="decreaseQty(item)" color="danger" name="remove-circle-outline" class="icon"></ion-icon>
+                      <ion-icon slot="start" (click)="decreaseQty(item)" color="danger" name="remove-circle-outline" class="modal-inc-dec-icon"></ion-icon>
                       <ion-input [(ngModel)]="item.scannedQuantity" type="number" class="compact-input" readonly></ion-input>
-                      <ion-icon slot="end" (click)="increaseQty(item)" name="add-circle-outline" class="icon"></ion-icon>
+                      <ion-icon slot="end" (click)="increaseQty(item)" name="add-circle-outline" class="modal-inc-dec-icon"></ion-icon>
                     </ion-item>
                   </div>
                   <ion-text>Required: <strong> {{ item?.quantity }} </strong></ion-text><br />
@@ -151,7 +155,7 @@
   </ion-modal>
 </ion-content>
 
-<ion-footer *ngIf="activeTab === 'counted'">
+<ion-footer *ngIf="activeTab === 'counted' && uncountedCount == 0 && countedCount > 0">
   <ion-toolbar>
     <ion-button expand="block">
       {{ loading ? 'Uploading...' : 'Upload' }}
