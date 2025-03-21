@@ -21,10 +21,22 @@
   --padding-end: 5px;
 }
 
-.icon {
+.modal-inc-dec-icon {
   margin: 0;
   font-size: 28px; // Consistent icon size
 }
+
+.inc-icon {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 20px; // Consistent icon size
+}
+
+.dec-icon {
+  display: block;
+  font-size: 20px; // Consistent icon size
+}
+
 
 .item-description {
   font-size: 1rem;
@@ -47,8 +59,12 @@
   display: block;
 }
 
+.quantity {
+  margin-bottom: 7px;
+}
+
 .quantity-info {
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: bold;
 }
 
@@ -71,4 +87,9 @@ ion-tab {
 
 ion-list {
   padding: 0; // Remove extra padding that might constrain list
+}
+
+.completeBtn{
+  font-size: 25px;
+  float: inline-end;
 }
