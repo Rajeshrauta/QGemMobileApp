@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Estimate #{{order?.docNumber}}</ion-title>
+    <ion-title>Estimate #{{docNumber}}</ion-title>
     <ion-button slot="start" fill="clear">
       <ion-back-button defaultHref="/home" color="dark" slot="icon-only"></ion-back-button>
     </ion-button>
@@ -34,22 +34,22 @@
               <ion-row>
                 <ion-col size="12">
                   <ion-text class="item-description">
-                    <ion-icon name="logo-apple-ar"></ion-icon> <strong> {{ item?.description }} </strong>
+                    <ion-icon name="logo-apple-ar"></ion-icon> <strong> {{ item?.Description }} </strong>
                   </ion-text>
                 </ion-col>
                 <ion-col size="4">
                   <ion-text class="item-name">
-                    <ion-icon name="attach-outline"></ion-icon> {{ item?.name }} 
+                    <ion-icon name="attach-outline"></ion-icon> {{ item?.ItemName }} 
                   </ion-text>
                   <ion-text class="item-expiry">
-                    <ion-icon name="calendar-outline"></ion-icon> <strong> {{ item?.expiryDate | date:'MM/d/y' }} </strong>
+                    <ion-icon name="calendar-outline"></ion-icon> <strong> {{ item?.ExpiryDate | date:'MM/d/y' }} </strong>
                   </ion-text>
                   <ion-text class="item-location">
-                    📍<strong> {{ item?.location }} </strong>
+                    📍<strong> {{ item?.Location }} </strong>
                   </ion-text>
                 </ion-col>
                 <ion-col size="4">
-                  <ion-text>Required: <span class="quantity-info"> {{ item?.quantity }} </span></ion-text><br />
+                  <ion-text>Required: <span class="quantity-info"> {{ item?.Quantity }} </span></ion-text><br />
                   <ion-text>Scanned: <span class="quantity-info"> {{ item?.scannedQuantity }} </span></ion-text>
                 </ion-col>
                 <ion-col size="2">
@@ -75,19 +75,19 @@
               <ion-row>
                 <ion-col size="12">
                   <ion-text class="item-description">
-                    <ion-icon name="logo-apple-ar"></ion-icon> <strong> {{ item?.description }} </strong>
+                    <ion-icon name="logo-apple-ar"></ion-icon> <strong> {{ item?.Description }} </strong>
                   </ion-text>
                 </ion-col>
                 <ion-col size="8">
                   <ion-text class="item-name">
-                    <ion-icon name="attach-outline"></ion-icon> {{ item?.name }} 
+                    <ion-icon name="attach-outline"></ion-icon> {{ item?.ItemName }} 
                   </ion-text>
                   <ion-text class="item-expiry">
-                    <ion-icon name="calendar-outline"></ion-icon> <strong> {{ item?.expiryDate | date:'MM/d/y' }} </strong>
+                    <ion-icon name="calendar-outline"></ion-icon> <strong> {{ item?.ExpiryDate | date:'MM/d/y' }} </strong>
                   </ion-text>
                 </ion-col>
                 <ion-col size="4" class="right-align">
-                  <ion-text class="quantity-info">Required: <strong> {{ item?.quantity }} </strong></ion-text><br />
+                  <ion-text class="quantity-info">Required: <strong> {{ item?.Quantity }} </strong></ion-text><br />
                   <ion-text class="quantity-info">Scanned: <strong> {{ item?.scannedQuantity }} </strong></ion-text>
                 </ion-col>
                 <ion-col size="12">
@@ -122,18 +122,18 @@
               <ion-row>
                 <ion-col size="12">
                   <ion-text class="item-description">
-                    <ion-icon name="logo-apple-ar"></ion-icon> <strong> {{ item?.description }} </strong>
+                    <ion-icon name="logo-apple-ar"></ion-icon> <strong> {{ item?.Description }} </strong>
                   </ion-text>
                 </ion-col>
                 <ion-col size="7">
                   <ion-text class="item-name">
-                    <ion-icon name="attach-outline"></ion-icon> {{ item?.name }} 
+                    <ion-icon name="attach-outline"></ion-icon> {{ item?.ItemName }} 
                   </ion-text>
                   <ion-text class="item-expiry">
-                    <ion-icon name="calendar-outline"></ion-icon> <strong> {{ item?.expiryDate | date:'MM/d/y' }} </strong>
+                    <ion-icon name="calendar-outline"></ion-icon> <strong> {{ item?.ExpiryDate | date:'MM/d/y' }} </strong>
                   </ion-text>
                   <ion-text class="item-location">
-                    📍<strong> {{ item?.location }} </strong>
+                    📍<strong> {{ item?.Location }} </strong>
                   </ion-text>
                 </ion-col>
                 <ion-col size="5" class="right-align">
@@ -144,7 +144,7 @@
                       <ion-icon slot="end" (click)="increaseQty(item)" name="add-circle-outline" class="modal-inc-dec-icon"></ion-icon>
                     </ion-item>
                   </div>
-                  <ion-text>Required: <strong> {{ item?.quantity }} </strong></ion-text><br />
+                  <ion-text>Required: <strong> {{ item?.Quantity }} </strong></ion-text><br />
                 </ion-col>
               </ion-row>
             </ion-grid>            

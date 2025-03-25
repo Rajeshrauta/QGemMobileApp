@@ -1,19 +1,21 @@
 export interface Order {
-    estimateId: number;
-    docNumber: number;
-    customerName : string;
-    itemCount : number;
-    assignTime: Date;
-    items: Item[];
+  AssignedTime: Date;
+  EstimateId: number;
+  DocNumber: number;
+  CustomerId: number;
+  CustomerName : string;
+  AssociateId : string;
+  DistinctItemCount : number;
   }
   
   export interface Item {
-    name: string;
-    description : string;
-    location : string;
-    expiryDate : Date;
+    ItemId: number;
+    ItemName: string;
+    Description : string;
+    Location : string;
+    ExpiryDate : Date;
+    Quantity: number;
     barcode: string;
-    quantity: number;
     scannedQuantity: number;
     completed: boolean ;
   }

@@ -7,6 +7,7 @@ import { exitOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { Order } from 'src/app/model/order.model';
 
 @Component({
   selector: 'app-order',
@@ -29,7 +30,7 @@ import { Router } from '@angular/router';
 })
 export class OrderPage implements OnInit {
 
-  items: any[] = []
+  items: Order[] = []
   constructor(
     private orderService: OrderService,
     private alertCtrl: AlertController, 
@@ -39,7 +40,15 @@ export class OrderPage implements OnInit {
   }
 
   ngOnInit() {
-    this.items = this.orderService.getOrders();
+    this.getOrderHistoryList();
+  }
+
+  public getOrderHistoryList() {
+    this.orderService.GetOrderHistoryList("").subscribe((res: any) => {
+      console.log(res);
+      this.items = res;
+    }, () => {
+    });
   }
 
   async confirmLogout() {

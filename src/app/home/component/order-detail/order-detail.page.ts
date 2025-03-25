@@ -80,9 +80,10 @@ import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
   ]
 })
 export class OrderDetailPage implements OnInit {
-  order?: Order;
+  order: any;
   item: Item[] = [];
   scannedItems: Item[] = [];
+  docNumber : string="";
 
   uncountedCount: number = 0;
   countedCount: number = 0;
@@ -117,12 +118,15 @@ export class OrderDetailPage implements OnInit {
 
   getParams() {
     const id = Number(this.route.snapshot.paramMap.get('docNumber')); // Convert to number
-    this.order = this.orderService.getOrderDetail(id);
-    this.item = this.order?.items.map(item => ({
-      ...item,
-      scannedQuantity: item.scannedQuantity || 0,
-      completed: item.completed || false // Add completed flag
-    })) || [];
+    this.docNumber = id.toString();
+    this.orderService.getOrderDetail(id).subscribe((res:any ) => {
+      console.log(res);
+      this.item = res.map((item: Item) => ({
+        ...item,
+        scannedQuantity: item.scannedQuantity || 0,
+        completed: item.completed || false // Add completed flag
+      })) || [];
+    }, () => {});
   }
 
   get uncountedItems(): Item[] {
@@ -155,11 +159,11 @@ export class OrderDetailPage implements OnInit {
   }
 
   increaseQty(item: Item) {
-    if (item.scannedQuantity < item.quantity) {
+    if (item.scannedQuantity < item.Quantity) {
       item.scannedQuantity++;
       this.saveLocalData();
     } else {
-      this.presentToast(`Cannot add more than ${item.quantity} for ${item.name}.`);
+      this.presentToast(`Cannot add more than ${item.Quantity} for ${item.ItemName}.`);
     }
   }
 
@@ -172,7 +176,7 @@ export class OrderDetailPage implements OnInit {
       });
       const savedData = JSON.parse(result.data as string);
       this.item.forEach(item => {
-        const savedItem = savedData.find((i: Item) => i.barcode === item.barcode && i.location == item.location);
+        const savedItem = savedData.find((i: Item) =>i.ItemId == item.ItemId && i.barcode === item.barcode && i.Location == item.Location);
         if (savedItem) {
           item.scannedQuantity = savedItem.scannedQuantity;
           item.completed = savedItem.completed || false;
